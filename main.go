@@ -18,12 +18,16 @@ import (
 
 func main() {
 	// 添加命令行参数
-	usernamePtr := flag.String("username", "", "the username for authentication")
-	passwordPtr := flag.String("password", "", "the password for authentication")
+	var username string
+	var password string
+	flag.StringVar(&username, "username", "", "the username for authentication")
+	flag.StringVar(&username, "u", "", "the username for authentication")
+	flag.StringVar(&password, "password", "", "the password for authentication")
+	flag.StringVar(&password, "p", "", "the password for authentication")
 	flag.Parse()
 
 	// 检查命令行参数是否提供
-	if *usernamePtr == "" || *passwordPtr == "" {
+	if username == "" || password == "" {
 		fmt.Println("Error: both username and password are required")
 		return
 	}
@@ -56,9 +60,9 @@ func main() {
 
 	// 参数定义参考 https://pass.neu.edu.cn/tpass/comm/neu/js/login_neu.js
 	data := url.Values{}
-	data.Set("rsa", fmt.Sprintf("%s%s%s", *usernamePtr, *passwordPtr, ltID))
-	data.Set("ul", strconv.Itoa(len(*usernamePtr)))
-	data.Set("pl", strconv.Itoa(len(*passwordPtr)))
+	data.Set("rsa", fmt.Sprintf("%s%s%s", username, password, ltID))
+	data.Set("ul", strconv.Itoa(len(username)))
+	data.Set("pl", strconv.Itoa(len(password)))
 	data.Set("lt", ltID)
 	data.Set("execution", executionID)
 	data.Set("_eventId", "submit")
