@@ -96,7 +96,6 @@ func main() {
 	defer resp.Body.Close()
 	// 统一认证拿到ticket
 	resp, err = client.Get("https://pass.neu.edu.cn/tpass/login?service=http://ipgw.neu.edu.cn/srun_portal_sso?" + resp.Request.URL.RawQuery)
-	fmt.Println(resp.Request.URL.RawQuery)
 	if err != nil {
 		fmt.Println("Error get ticket:", err)
 		return
@@ -104,7 +103,6 @@ func main() {
 	defer resp.Body.Close()
 	// 使用ticket调用api登录
 	req, _ = http.NewRequest("GET", "https://ipgw.neu.edu.cn/v1"+resp.Request.URL.RequestURI(), nil)
-	fmt.Println(resp.Request.URL.RequestURI())
 	resp, err = client.Do(req)
 	if err != nil {
 		fmt.Println("Error login ipgw:", err)
