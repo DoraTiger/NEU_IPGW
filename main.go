@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/tls"
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -111,8 +112,16 @@ func main() {
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(strconv.Quote(string(body)))
-
+	code, msg, err := getReadableMessage(body)
+	if err != nil {
+		fmt.Println("Error login ipgw:", err)
+		return
+	}
+	if code == 0 {
+		fmt.Println("login success:", msg)
+	} else {
+		fmt.Println("login failes:", msg)
+	}
 }
 
 func getLtAndExecution(resp *http.Response) (string, string, error) {
@@ -129,4 +138,21 @@ func getLtAndExecution(resp *http.Response) (string, string, error) {
 		return "", "", errors.New("execution not found")
 	}
 	return lt, execution, nil
+}
+
+type Message struct {
+	Code     int    `json:"code"`
+	Message  string `json:"message"`
+	Redirect string `json:"Redirect"`
+	ID       string `json:"ID"`
+}
+
+func getReadableMessage(jsonStr []byte) (int, string, error) {
+	var message Message
+	err := json.Unmarshal(jsonStr, &message)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return 1, "", err
+	}
+	return message.Code, message.Message, nil
 }
