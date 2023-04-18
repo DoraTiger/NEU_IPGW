@@ -13,6 +13,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/DoraTiger/NEU_IPGW"
 	"github.com/PuerkitoBio/goquery"
 )
 
@@ -20,11 +21,20 @@ func main() {
 	// 添加命令行参数
 	var username string
 	var password string
+	var showVersion bool
 	flag.StringVar(&username, "username", "", "the username for authentication")
 	flag.StringVar(&username, "u", "", "the username for authentication")
 	flag.StringVar(&password, "password", "", "the password for authentication")
 	flag.StringVar(&password, "p", "", "the password for authentication")
+	flag.BoolVar(&showVersion, "version", false, "the version of NEU_IPGW")
+	flag.BoolVar(&showVersion, "v", false, "the version of NEU_IPGW")
 	flag.Parse()
+
+	// 输出版本
+	if showVersion {
+		fmt.Println("Version:", NEU_IPGW.Version)
+		return
+	}
 
 	// 检查命令行参数是否提供
 	if username == "" || password == "" {
