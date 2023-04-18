@@ -19,7 +19,7 @@
 ```bash
 ## example for ubuntu
 # download
-wget https://github.com/DoraTiger/NEU_IPGW/releases/download/v0.1.0/NEU_IPGW-darwin-amd64.tar.gz
+wget https://github.com/DoraTiger/NEU_IPGW/releases/download/v0.1.0/NEU_IPGW-linux-amd64.tar.gz
 # unzip and grant
 tar -zxf ./ipgw-linux-amd64.zip
 chmod +x ./NEU_IPGW
