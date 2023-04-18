@@ -1,5 +1,21 @@
-# Created by https://www.toptal.com/developers/gitignore/api/go,visualstudiocode,windows,linux,macos
-# Edit at https://www.toptal.com/developers/gitignore?templates=go,visualstudiocode,windows,linux,macos
+# Created by https://www.toptal.com/developers/gitignore/api/go,cmake,linux,macos,windows,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=go,cmake,linux,macos,windows,visualstudiocode
+
+### CMake ###
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+### CMake Patch ###
+# External projects
+*-prefix/
 
 ### Go ###
 # If you prefer the allow list template instead of the deny list, see community template:
@@ -117,4 +133,11 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/go,visualstudiocode,windows,linux,macos
+# End of https://www.toptal.com/developers/gitignore/api/go,cmake,linux,macos,windows,visualstudiocode
+
+### user define ###
+# build dir
+build/
+
+# release dir
+release/
