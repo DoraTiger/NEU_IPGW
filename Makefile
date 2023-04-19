@@ -1,7 +1,7 @@
 NAME=NEU_IPGW
 REPO=DoraTiger/NEU_IPGW
 MAIN_ENTRY=cmd/app/main.go
-VERSION=$(shell git describe --always)
+VERSION=$(shell git describe --always --tags)
 BUILD=$(shell date +%FT%T%z)
 BUILD_DIR=build
 RELEASE_DIR=release
