@@ -6,13 +6,15 @@
 
 服务器需要在命令行中进行登录，在 github 中找到 [neucn/ipgw](https://github.com/neucn/ipgw) 这个项目，但是多次尝试总是无法登录，故而基于该项目自行构建了一个简易版本。
 
+学习go工程开发，在`v0.2.0`中，将项目基于`cobra`命令行工具进行了重构。
+
 ## 安装
 
 以下安装过程以 Ubuntu 为例，其他系统请使用对应版本。
 
 ### 二进制文件安装
 
-1. 从[release 页面](https://github.com/doratiger/neu_ipgw/releases)新版本压缩文件
+1. 从[release 页面](https://github.com/doratiger/neu_ipgw/releases)获取最新版本压缩文件
 2. 解压缩，并赋予执行权限
 3. 部署至`/usr/local/bin`目录
 
@@ -48,13 +50,23 @@ sudo cp ./build/linux-amd64/NEU_IPGW /usr/local/bin/
 
 ## 使用
 
-仅支持登录，离线请通过访问 [https://ipgw.neu.edu.cn:8800/](https://ipgw.neu.edu.cn:8800/) 自行下线。
+1. 登录校园网
 
 ```bash
-NEU_IPGW --username username --password password
+NEU_IPGW login -u username -p password
+```
+
+2. 退出登录
+
+```bash
+NEU_IPGW logout
 ```
 
 ## 参考
 
 - [东北大学非官方跨平台校园网关客户端](https://github.com/neucn/ipgw)
 - [NEU API](https://github.com/neucn/neugo)
+
+## 存在问题
+
+- mips32位架构程序包无法使用，请在机器上自行编译
