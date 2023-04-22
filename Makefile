@@ -5,8 +5,8 @@ VERSION=$(shell git describe --always --tags)
 BUILD=$(shell date +%FT%T%z)
 BUILD_DIR=build
 RELEASE_DIR=release
-GO_BUILD=CGO_ENABLED=0 go build -trimpath -ldflags '-w -s -X "github.com/DoraTiger/NEU_IPGW.Version=${VERSION}" \
-		-X "github.com/DoraTiger/NEU_IPGW.Build=${BUILD}" -X "github.com/DoraTiger/NEU_IPGW.Repo=${REPO}"'
+GO_BUILD=CGO_ENABLED=0 go build -trimpath -ldflags '-w -s -X "github.com/DoraTiger/NEU_IPGW/version.Version=${VERSION}" \
+		-X "github.com/DoraTiger/NEU_IPGW/version.Build=${BUILD}" -X "github.com/DoraTiger/NEU_IPGW/version.Repo=${REPO}"'
 
 .PHONY: all clean release darwin-amd64 darwin-arm64 linux-386 linux-amd64 linux-arm linux-mips linux-mipsle linux-mips64 linux-mips64le freebsd-386 freebsd-amd64 windows-386 windows-amd64 windows-arm
 
