@@ -12,7 +12,7 @@ import (
 
 var LogoutCmd = &cobra.Command{
 	Use:   "logout",
-	Short: "commond for logout",
+	Short: "command for logout",
 	Run: func(cmd *cobra.Command, args []string) {
 		// init err
 		err := errors.New("")

@@ -28,7 +28,7 @@ func registerFlagsLoginCmd(cmd *cobra.Command) {
 
 var LoginCmd = &cobra.Command{
 	Use:   "login",
-	Short: "commond for login",
+	Short: "command for login",
 	Run: func(cmd *cobra.Command, args []string) {
 		// init err
 		err := errors.New("")

@@ -7,7 +7,7 @@ var (
 	Repo    = RepoDefault
 )
 
-// if not use make to build project, use the following default variables for version commond
+// if not use make to build project, use the following default variables for version command
 const (
 	// VersionDefault is the default version of NEU_IPGW
 	VersionDefault = "unknown"
