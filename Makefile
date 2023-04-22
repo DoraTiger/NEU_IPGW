@@ -44,10 +44,10 @@ linux-arm:
 	GOARCH=arm64 GOOS=linux $(GO_BUILD) -o $(BUILD_DIR)/$@/$(NAME) ${MAIN_ENTRY}
 
 linux-mips:
-	GOARCH=mips64 GOOS=linux $(GO_BUILD) -o $(BUILD_DIR)/$@/$(NAME) ${MAIN_ENTRY}
+	GOARCH=mips GOOS=linux $(GO_BUILD) -o $(BUILD_DIR)/$@/$(NAME) ${MAIN_ENTRY}
 
 linux-mipsle:
-	GOARCH=mips64le GOOS=linux $(GO_BUILD) -o $(BUILD_DIR)/$@/$(NAME) ${MAIN_ENTRY}
+	GOARCH=mipsle GOOS=linux $(GO_BUILD) -o $(BUILD_DIR)/$@/$(NAME) ${MAIN_ENTRY}
 
 linux-mips64:
 	GOARCH=mips64 GOOS=linux $(GO_BUILD) -o $(BUILD_DIR)/$@/$(NAME) ${MAIN_ENTRY}
