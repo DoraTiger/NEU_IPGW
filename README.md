@@ -32,7 +32,7 @@ sudo cp ./NEU_IPGW  /usr/local/bin/
 ### 源码安装
 
 1. 准备 go 语言环境，可参考该[博客](https://www.superheaoz.top/2022/10/1036/)的 2.3 节。
-2. 编译项目
+2. 编译项目(考虑到服务器本身无网络的情况，提供了vendor目录，支持离线编译，如不需要，请删除makefile中的`-mod=vendor`)
 3. 部署至`/usr/local/bin`目录
 
 ```bash
