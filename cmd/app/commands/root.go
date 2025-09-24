@@ -38,19 +38,14 @@ var RootCmd = &cobra.Command{
 		switch log_level {
 		case "error":
 			logger.SetLevel(logrus.ErrorLevel)
-			break
 		case "warn":
 			logger.SetLevel(logrus.WarnLevel)
-			break
 		case "info":
 			logger.SetLevel(logrus.InfoLevel)
-			break
 		case "debug":
 			logger.SetLevel(logrus.DebugLevel)
-			break
 		case "trace":
 			logger.SetLevel(logrus.TraceLevel)
-			break
 		default:
 			logger.SetLevel(logrus.InfoLevel)
 		}
