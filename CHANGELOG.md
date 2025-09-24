@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.2.1] - 2025-09-25
+
+### Changed
+- Optimize build process and improve Makefile configuration
+- Add SHA256 checksum generation mechanism for releases
+
+### Added
+- Integrate automatic SHA256 checksum calculation and generation for binary files in release script
+- Provide unified checksums.txt file for each release version
+
 ## [v0.2.0] - 2023-04-22
 
 ### Changed

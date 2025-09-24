@@ -15,17 +15,24 @@
 ### 二进制文件安装
 
 1. 从[release 页面](https://github.com/doratiger/neu_ipgw/releases)获取最新版本压缩文件
-2. 解压缩，并赋予执行权限
+2. 验证文件完整性 (optional)
+3. 解压缩，并赋予执行权限
 3. 部署至`/usr/local/bin`目录 (optional)
 
 ```bash
 ## example for linux(x86_64)
 # download
 wget https://github.com/DoraTiger/NEU_IPGW/releases/latest/NEU_IPGW-linux-amd64.tar.gz
+
+# check (optional)
+wget https://github.com/DoraTiger/NEU_IPGW/releases/latest/NEU_IPGW-linux-amd64.tar.gz.sha256
+sha256sum -c NEU_IPGW-linux-amd64.tar.gz.sha256
+
 # unzip and grant
-tar -zxf ./ipgw-linux-amd64.zip
+tar -zxf ./NEU_IPGW-linux-amd64.tar.gz
 chmod +x ./NEU_IPGW
-# move
+
+# move (optional)
 sudo cp ./NEU_IPGW  /usr/local/bin/
 ```
 
@@ -45,7 +52,7 @@ cd NEU_IPGW
 make build
 # grant
 chmod +x ./build/NEU_IPGW
-# move
+# move (optional)
 sudo cp ./build/NEU_IPGW /usr/local/bin/
 ```
 
@@ -69,4 +76,3 @@ NEU_IPGW logout
 - [NEU API](https://github.com/neucn/neugo)
 
 ## 存在问题
-
