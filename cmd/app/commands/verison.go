@@ -32,13 +32,13 @@ var VersionCmd = &cobra.Command{
 				Build    string `json:"build"`
 				Repo     string `json:"repo"`
 			}{
-				NEU_IPGW: version.Version,
-				Build:    version.Build,
-				Repo:     version.Repo,
+				NEU_IPGW: version.BuildVersion,
+				Build:    version.BuildTime,
+				Repo:     version.BuildRepo,
 			}, "", "  ")
 			fmt.Println(string(values))
 		} else {
-			fmt.Println(version.Version)
+			fmt.Println(version.BuildVersion)
 		}
 	},
 }
