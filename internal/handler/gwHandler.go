@@ -10,8 +10,8 @@ import (
 	"errors"
 
 	"github.com/DoraTiger/NEU_IPGW/config"
-	"github.com/DoraTiger/NEU_IPGW/pkg/data"
-	"github.com/DoraTiger/NEU_IPGW/pkg/utils"
+	"github.com/DoraTiger/NEU_IPGW/internal/data"
+	"github.com/DoraTiger/NEU_IPGW/internal/utils"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/sirupsen/logrus"
 )

@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/DoraTiger/NEU_IPGW/config"
-	"github.com/DoraTiger/NEU_IPGW/pkg/utils"
+	"github.com/DoraTiger/NEU_IPGW/internal/utils"
 	"github.com/sirupsen/logrus"
 )
 

@@ -5,8 +5,8 @@ import (
 
 	"errors"
 
-	"github.com/DoraTiger/NEU_IPGW/pkg/handler"
-	"github.com/DoraTiger/NEU_IPGW/pkg/utils"
+	"github.com/DoraTiger/NEU_IPGW/internal/handler"
+	"github.com/DoraTiger/NEU_IPGW/internal/utils"
 	"github.com/spf13/cobra"
 )
 

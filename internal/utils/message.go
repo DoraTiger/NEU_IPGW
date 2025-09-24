@@ -5,12 +5,17 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/DoraTiger/NEU_IPGW/pkg/data"
 )
 
+type LoginMessage struct {
+	Code     int    `json:"code"`
+	Message  string `json:"message"`
+	Redirect string `json:"Redirect"`
+	ID       string `json:"ID"`
+}
+
 func GetReadableLoginMessage(resp *http.Response) (int, string, error) {
-	var message data.LoginMessage
+	var message LoginMessage
 	body, _ := ioutil.ReadAll(resp.Body)
 	err := json.Unmarshal(body, &message)
 	if err != nil {
@@ -22,7 +27,7 @@ func GetReadableLoginMessage(resp *http.Response) (int, string, error) {
 func GetCNLoginMessage(m string) string {
 	switch m {
 	case "ip_already_online_error":
-		return "IP已经在线"
+		return "IP 已经在线"
 	case "success":
 		return "登录成功"
 	default:
