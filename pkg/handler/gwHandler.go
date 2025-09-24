@@ -21,7 +21,7 @@ type GwHandler struct {
 	logger *logrus.Logger
 }
 
-//set logger
+// set logger
 func (h *GwHandler) SetLogger(logger *logrus.Logger) {
 	h.logger = logger
 }

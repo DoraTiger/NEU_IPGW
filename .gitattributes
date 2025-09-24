@@ -1,0 +1,23 @@
+# ========== text files ==============
+*.go    text    eol=lf    diff=go
+*.mod   text    eol=lf
+*.sum   text    eol=lf
+*.yaml  text    eol=lf
+*.yml   text    eol=lf
+*.json  text    eol=lf
+*.md    text    eol=lf
+*.proto text    eol=lf
+*.sh    text    eol=lf
+
+# ========== binary files ============
+*.pb.go binary
+
+# ========== platform files ==========
+*.bat   text    eol=crlf
+
+# ========== language files ==========
+go.mod  linguist-language=Go
+go.sum  linguist-language=Go
+
+# ========== generate files ==========
+*.pb.go -diff

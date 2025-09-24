@@ -14,7 +14,7 @@ type ipgwHandler struct {
 	logger *logrus.Logger
 }
 
-//set logger
+// set logger
 func (h *ipgwHandler) SetLogger(logger *logrus.Logger) {
 	h.logger = logger
 }
