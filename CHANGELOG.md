@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.2.2] - 2026-03-10
+
+### Added
+- Implement RSA encryption for account credentials storage
+
+### Changed
+- Update account data structure to support encrypted credentials
+- Enhance config module for secure credential handling 
+
 ## [v0.2.1] - 2025-09-25
 
 ### Changed
