@@ -88,24 +88,35 @@ $(1): ; $$(call build-platform,$$(word 1,$$(subst -, ,$(1))),$$(word 2,$$(subst 
 .PHONY: $(1)
 endef
 
+# Baseline release targets: mainstream desktop/server + legacy compatibility.
 PLATFORM_LIST = \
 	darwin-amd64 \
 	darwin-arm64 \
 	linux-386 \
 	linux-amd64 \
 	linux-arm \
+	linux-arm64 \
 	linux-mips \
 	linux-mipsle \
 	linux-mips64 \
 	linux-mips64le \
+	linux-ppc64le \
+	linux-riscv64 \
+	linux-s390x \
 	freebsd-386 \
 	freebsd-amd64 \
+	freebsd-arm64 \
 	windows-386 \
 	windows-amd64 \
-	windows-arm
+	windows-arm \
+	windows-arm64
 
 # auto-generate rules for each platform
 $(foreach p,$(PLATFORM_LIST),$(eval $(call build-platform-rule,$(p))))
 
 build-all: $(PLATFORM_LIST)
 .PHONY: build-all
+
+list-platforms:
+	@printf '%s\n' $(PLATFORM_LIST)
+.PHONY: list-platforms
