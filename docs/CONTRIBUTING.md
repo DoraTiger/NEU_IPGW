@@ -1,6 +1,6 @@
 # 贡献指南
 
-[简体中文](./CONTRIBUTING.md) | [English](./docs/CONTRIBUTING.en.md)
+[简体中文](./CONTRIBUTING.md) | [English](.//CONTRIBUTING.en.md)
 
 感谢你对本项目的关注与贡献！为保证代码质量和协作效率，请在提交 Issue 或 Pull Request 前阅读本指南。
 

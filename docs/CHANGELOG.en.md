@@ -1,5 +1,22 @@
 # Changelog
 
+[简体中文](./CHANGELOG.md) | [English](./CHANGELOG.en.md)
+
+## [v0.3.0] - 2026-03-30
+
+### Added
+- Add local encrypted credential storage with optional `--save`
+- Add multi-account management by username and `accounts list`
+- Add `--account` selector for login/logout credential operations
+- Add runtime overrides for credential directory and master key via environment variables
+- Add `install` CLI subcommand for user/system installs on Linux/macOS/FreeBSD
+- Add `install-user`, `install-system`, and `uninstall-user` Makefile targets with XDG-compliant layout
+
+### Changed
+- Expand cross-platform build matrix in `Makefile`
+- Update documentation with Linux user-level installation layout and symlink guidance
+- Restructure README install instructions to cover automated and manual flows per platform
+
 ## [v0.2.2] - 2026-03-10
 
 ### Added

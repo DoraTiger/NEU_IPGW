@@ -52,6 +52,14 @@ CGO_ENABLED ?= 0
 BUILD_DIR=build
 RELEASE_DIR=release
 
+# install directories
+XDG_DATA_HOME ?= $(HOME)/.local/share
+USER_INSTALL_BASE ?= $(XDG_DATA_HOME)/doratiger/neu_ipgw
+USER_BIN_DIR ?= $(HOME)/.local/bin
+USER_INSTALL_DIR ?= $(USER_INSTALL_BASE)/$(BUILD_VERSION)
+SYSTEM_BIN_DIR ?= /usr/local/bin
+OS_NAME := $(shell uname -s | tr '[:upper:]' '[:lower:]')
+
 ifeq ($(OS),Windows_NT)
   BINARY_EXT := .exe
 else
@@ -76,6 +84,42 @@ clean:
 	rm -rf $(BUILD_DIR)/*
 	rm -rf $(RELEASE_DIR)/*
 .PHONY: clean
+
+install-user: build
+	@if [ "$(OS_NAME)" != "linux" ] && [ "$(OS_NAME)" != "freebsd" ] && [ "$(OS_NAME)" != "darwin" ]; then \
+		echo "ERROR: install-user only supports Linux/macOS/FreeBSD (current: $(OS_NAME))"; \
+		exit 1; \
+	fi
+	@mkdir -p "$(USER_INSTALL_DIR)" "$(USER_BIN_DIR)"
+	@cp "$(BUILD_DIR)/$(NAME)$(BINARY_EXT)" "$(USER_INSTALL_DIR)/$(NAME)$(BINARY_EXT)"
+	@chmod +x "$(USER_INSTALL_DIR)/$(NAME)$(BINARY_EXT)"
+	@ln -sfn "$(USER_INSTALL_DIR)/$(NAME)$(BINARY_EXT)" "$(USER_BIN_DIR)/$(NAME)$(BINARY_EXT)"
+	@echo "Installed to $(USER_INSTALL_DIR)/$(NAME)$(BINARY_EXT)"
+	@echo "Linked at $(USER_BIN_DIR)/$(NAME)$(BINARY_EXT)"
+	@echo "Ensure $(USER_BIN_DIR) is in your PATH"
+.PHONY: install-user
+
+install-system: build
+	@if [ "$(OS_NAME)" != "linux" ] && [ "$(OS_NAME)" != "freebsd" ] && [ "$(OS_NAME)" != "darwin" ]; then \
+		echo "ERROR: install-system only supports Linux/macOS/FreeBSD (current: $(OS_NAME))"; \
+		exit 1; \
+	fi
+	@install -d "$(SYSTEM_BIN_DIR)"
+	@install -m 755 "$(BUILD_DIR)/$(NAME)$(BINARY_EXT)" "$(SYSTEM_BIN_DIR)/$(NAME)$(BINARY_EXT)"
+	@echo "Installed to $(SYSTEM_BIN_DIR)/$(NAME)$(BINARY_EXT)"
+.PHONY: install-system
+
+install: install-user
+.PHONY: install
+
+uninstall-user:
+	@if [ "$(OS_NAME)" != "linux" ] && [ "$(OS_NAME)" != "freebsd" ] && [ "$(OS_NAME)" != "darwin" ]; then \
+		echo "ERROR: uninstall-user only supports Linux/macOS/FreeBSD (current: $(OS_NAME))"; \
+		exit 1; \
+	fi
+	@rm -f "$(USER_BIN_DIR)/$(NAME)$(BINARY_EXT)"
+	@echo "Removed link $(USER_BIN_DIR)/$(NAME)$(BINARY_EXT)"
+.PHONY: uninstall-user
 
 # Build for a specific platform
 define build-platform

@@ -10,14 +10,23 @@
 
 ## 安装
 
-以下安装过程以 Ubuntu 为例，其他系统请使用对应版本。
-
 ### 二进制文件安装
 
-1. 从[release 页面](https://github.com/doratiger/neu_ipgw/releases)获取最新版本压缩文件
+1. 从[release 页面](https://github.com/doratiger/neu_ipgw/releases)获取匹配你平台的压缩文件
 2. 验证文件完整性 (optional)
 3. 解压缩，并赋予执行权限
-3. 部署至`/usr/local/bin`目录 (optional)
+4. 选择以下方式之一放置可执行文件：
+	- **自动安装（Linux/macOS/FreeBSD）**：
+
+```bash
+# 将当前目录下的 NEU_IPGW 安装到 ~/.local/share/... 并链接 ~/.local/bin
+./NEU_IPGW install
+
+# 安装到 /usr/local/bin（需要 sudo）
+sudo ./NEU_IPGW install --system
+```
+
+	- **手动拷贝（所有平台通用）**：
 
 ```bash
 ## example for linux(x86_64)
@@ -36,13 +45,15 @@ chmod +x ./NEU_IPGW
 sudo cp ./NEU_IPGW  /usr/local/bin/
 ```
 
+> 自动安装会在不支持的平台（如 Windows）中止，此时请使用手动方式。请确保 `~/.local/bin` 已加入 PATH。
+
 ### 源码安装
 
 源码安装方式自适应系统架构
 
 1. 准备 go 语言环境，可参考该[博客](https://www.superheaoz.top/2022/10/1036/)的 2.3 节
 2. 获取源码并编译
-3. 部署至`/usr/local/bin`目录 (optional)
+3. 在 Linux/macOS/FreeBSD 上可使用 Makefile 安装目标，其他平台手动拷贝即可
 
 ```bash
 # download
@@ -50,6 +61,15 @@ git clone https://github.com/DoraTiger/NEU_IPGW.git
 cd NEU_IPGW
 # build
 make build
+# 自动安装到用户目录（~/.local/share/... + ~/.local/bin）
+make install-user
+
+# 安装到系统目录（需要 sudo）
+sudo make install-system
+
+# 移除用户级符号链接
+make uninstall-user
+
 # grant
 chmod +x ./build/NEU_IPGW
 # move (optional)
@@ -115,6 +135,11 @@ export NEU_IPGW_MASTER_KEY="your-custom-master-key"
 本地凭据默认目录为 `~/.config/doratiger/neu-ipgw/`。
 默认内置密钥是公开值，仅用于降低凭据被直接阅读的风险，不等价于高强度安全；建议自行生成并覆盖 `NEU_IPGW_MASTER_KEY`。
 如果你是自行编译，可以直接修改 [config/config.go](config/config.go) 中的 `DefaultMasterKey` 再编译。
+
+## 更新日志
+
+[简体中文](docs/CHANGELOG.md) | [English](docs/CHANGELOG.en.md)
+
 
 ## 参考
 

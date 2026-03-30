@@ -1,6 +1,6 @@
 # Contribution Guide
 
-[简体中文](../CONTRIBUTING.md) | [English](./CONTRIBUTING.en.md)
+[简体中文](./CONTRIBUTING.md) | [English](./CONTRIBUTING.en.md)
 
 Thank you for your interest in and contribution to this project! To ensure code quality and collaboration efficiency, please read this guide before submitting Issues or Pull Requests.
 
