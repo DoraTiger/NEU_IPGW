@@ -4,6 +4,13 @@ const (
 	DefaultNEUDir     = ".NEU"
 	DefaultGatewayURL = "https://pass.neu.edu.cn/tpass/login"
 
+	DefaultConfigSubPath = ".config/doratiger/neu-ipgw"
+	CredentialFileName   = "credentials.enc"
+	EnvConfigDir         = "NEU_IPGW_CONFIG_DIR"
+	EnvMasterKey         = "NEU_IPGW_MASTER_KEY"
+	// DefaultMasterKey is public and meant for baseline obfuscation only.
+	DefaultMasterKey = "doratiger-neu-ipgw-default-master-key-v1"
+
 	DefaultIPGatewayLoginURL    = "https://ipgw.neu.edu.cn/srun_portal_pc?ac_id=1"
 	DefaultIPGatewayLoggedinURL = "https://ipgw.neu.edu.cn/srun_portal_success?ac_id=1"
 

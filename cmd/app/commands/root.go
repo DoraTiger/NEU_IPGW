@@ -22,6 +22,8 @@ func init() {
 func registerFlagsRootCmd(cmd *cobra.Command) {
 	cmd.PersistentFlags().StringVar(&log_level, "log_level", cfg.DefaultLogLevel, "log level")
 	cmd.PersistentFlags().StringVar(&log_format, "log_format", cfg.DefaultLogFormat, "log format")
+	cmd.PersistentFlags().StringVar(&configDirFlag, "config-dir", "", "credential config directory")
+	cmd.PersistentFlags().StringVar(&masterKeyFlag, "master-key", "", "master key for local credential encryption")
 }
 
 // RootCmd is the root command for NEU_IPGW.
@@ -57,6 +59,10 @@ var RootCmd = &cobra.Command{
 
 		// Set the log output path
 		logger.SetOutput(os.Stdout)
+
+		if err := initRuntimeConfig(); err != nil {
+			return err
+		}
 
 		return nil
 	},

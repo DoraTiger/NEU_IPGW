@@ -64,11 +64,57 @@ sudo cp ./build/NEU_IPGW /usr/local/bin/
 NEU_IPGW login -u username -p password
 ```
 
-2. 退出登录
+2. 保存账号密码到本地（同名自动覆盖）
+
+```bash
+NEU_IPGW login -u username -p password --save
+```
+
+3. 使用已保存账号登录
+
+```bash
+# 使用最近一次成功账号
+NEU_IPGW login
+
+# 指定某个已保存账号
+NEU_IPGW login --account username
+```
+
+4. 查看已保存账号列表
+
+```bash
+NEU_IPGW accounts list
+```
+
+5. 退出登录
 
 ```bash
 NEU_IPGW logout
 ```
+
+6. 退出登录并删除本地凭据
+
+```bash
+# 删除最近一次成功账号的本地凭据
+NEU_IPGW logout --forget
+
+# 删除指定账号的本地凭据
+NEU_IPGW logout --forget --account username
+```
+
+7. 环境变量覆盖
+
+```bash
+# 覆盖本地凭据目录
+export NEU_IPGW_CONFIG_DIR="$HOME/.config/doratiger/neu-ipgw"
+
+# 覆盖本地加密密钥
+export NEU_IPGW_MASTER_KEY="your-custom-master-key"
+```
+
+本地凭据默认目录为 `~/.config/doratiger/neu-ipgw/`。
+默认内置密钥是公开值，仅用于降低凭据被直接阅读的风险，不等价于高强度安全；建议自行生成并覆盖 `NEU_IPGW_MASTER_KEY`。
+如果你是自行编译，可以直接修改 [config/config.go](config/config.go) 中的 `DefaultMasterKey` 再编译。
 
 ## 参考
 

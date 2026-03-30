@@ -13,6 +13,7 @@ func main() {
 		cmd.VersionCmd,
 		cmd.LoginCmd,
 		cmd.LogoutCmd,
+		cmd.AccountsCmd,
 	)
 	rootCmd.SilenceUsage = true
 	rootCmd.SilenceErrors = true
