@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/DoraTiger/NEU_IPGW/internal/handler"
+	"github.com/DoraTiger/NEU_IPGW/internal/i18n"
 	"github.com/DoraTiger/NEU_IPGW/internal/utils"
 	"github.com/spf13/cobra"
 )
@@ -31,6 +32,7 @@ var LoginCmd = &cobra.Command{
 	Use:   "login",
 	Short: "command for login",
 	Run: func(cmd *cobra.Command, args []string) {
+		lang := currentLanguage()
 		credentialUsername := strings.TrimSpace(username)
 		credentialPassword := password
 
@@ -91,6 +93,15 @@ var LoginCmd = &cobra.Command{
 		}
 
 		fmt.Println(msg)
+
+		info, err := ipgwHandler.FetchOnlineInfo()
+		if err != nil {
+			file, line := utils.GetErrorLocation()
+			logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
+			fmt.Printf("%s: %v\n", i18n.T(lang, i18n.MsgLoginUsageFail), err)
+			return
+		}
+		printOnlineInfo(lang, info)
 	},
 }
 

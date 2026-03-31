@@ -10,9 +10,10 @@ import (
 )
 
 var (
-	logger     = logrus.New()
-	log_level  string
-	log_format string
+	logger       = logrus.New()
+	log_level    string
+	log_format   string
+	languageFlag string
 )
 
 func init() {
@@ -24,6 +25,7 @@ func registerFlagsRootCmd(cmd *cobra.Command) {
 	cmd.PersistentFlags().StringVar(&log_format, "log_format", cfg.DefaultLogFormat, "log format")
 	cmd.PersistentFlags().StringVar(&configDirFlag, "config-dir", "", "credential config directory")
 	cmd.PersistentFlags().StringVar(&masterKeyFlag, "master-key", "", "master key for local credential encryption")
+	cmd.PersistentFlags().StringVar(&languageFlag, "lang", "", "output language (zh or en)")
 }
 
 // RootCmd is the root command for NEU_IPGW.

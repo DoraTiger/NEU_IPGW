@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	cfg "github.com/DoraTiger/NEU_IPGW/config"
+	"github.com/DoraTiger/NEU_IPGW/internal/i18n"
 	"github.com/DoraTiger/NEU_IPGW/internal/utils"
 )
 
@@ -14,6 +16,7 @@ var (
 	masterKeyFlag string
 	runtimeCfgDir string
 	runtimeKey    string
+	runtimeLang   string
 )
 
 func initRuntimeConfig() error {
@@ -27,6 +30,7 @@ func initRuntimeConfig() error {
 
 	runtimeCfgDir = resolvedDir
 	runtimeKey = utils.ResolveMasterKey(masterKeyFlag)
+	runtimeLang = resolveLanguage(languageFlag)
 
 	warnLegacyDirIfNeeded(resolvedDir)
 	return nil
@@ -50,5 +54,28 @@ func warnLegacyDirIfNeeded(resolvedDir string) {
 		if _, err := os.Stat(credFile); os.IsNotExist(err) {
 			logger.Warn("legacy directory .NEU detected; credentials now use ~/.config/doratiger/neu-ipgw")
 		}
+	}
+}
+
+func currentLanguage() string {
+	if runtimeLang == "" {
+		return i18n.DefaultLanguage
+	}
+	return runtimeLang
+}
+
+func resolveLanguage(flagValue string) string {
+	lang := strings.TrimSpace(flagValue)
+	if lang == "" {
+		lang = strings.TrimSpace(os.Getenv(cfg.EnvLanguage))
+	}
+	lang = strings.ToLower(lang)
+	switch lang {
+	case i18n.LangEnglish:
+		return i18n.LangEnglish
+	case i18n.LangChinese:
+		return i18n.LangChinese
+	default:
+		return i18n.DefaultLanguage
 	}
 }

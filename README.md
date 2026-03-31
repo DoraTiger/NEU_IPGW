@@ -84,6 +84,8 @@ sudo cp ./build/NEU_IPGW /usr/local/bin/
 NEU_IPGW login -u username -p password
 ```
 
+登录成功后会自动展示账号、已用流量、时长、余额以及当前在线 IP，便于确认网关状态。
+
 2. 保存账号密码到本地（同名自动覆盖）
 
 ```bash
@@ -100,19 +102,36 @@ NEU_IPGW login
 NEU_IPGW login --account username
 ```
 
-4. 查看已保存账号列表
+4. 查看当前登录信息
+
+```bash
+NEU_IPGW info
+```
+
+若当前终端尚未登录，命令会提示先执行 `NEU_IPGW login`。
+
+默认输出中文，可通过 `--lang en` 或环境变量 `NEU_IPGW_LANG=en` 切换到英文：
+
+```bash
+NEU_IPGW --lang en info
+
+export NEU_IPGW_LANG=en
+NEU_IPGW info
+```
+
+5. 查看已保存账号列表
 
 ```bash
 NEU_IPGW accounts list
 ```
 
-5. 退出登录
+6. 退出登录
 
 ```bash
 NEU_IPGW logout
 ```
 
-6. 退出登录并删除本地凭据
+7. 退出登录并删除本地凭据
 
 ```bash
 # 删除最近一次成功账号的本地凭据
@@ -122,7 +141,7 @@ NEU_IPGW logout --forget
 NEU_IPGW logout --forget --account username
 ```
 
-7. 环境变量覆盖
+8. 环境变量覆盖
 
 ```bash
 # 覆盖本地凭据目录
@@ -130,6 +149,9 @@ export NEU_IPGW_CONFIG_DIR="$HOME/.config/doratiger/neu-ipgw"
 
 # 覆盖本地加密密钥
 export NEU_IPGW_MASTER_KEY="your-custom-master-key"
+
+# 覆盖命令行输出语言（zh / en，默认 zh）
+export NEU_IPGW_LANG="en"
 ```
 
 本地凭据默认目录为 `~/.config/doratiger/neu-ipgw/`。

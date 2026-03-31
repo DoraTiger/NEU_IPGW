@@ -8,11 +8,13 @@ const (
 	CredentialFileName   = "credentials.enc"
 	EnvConfigDir         = "NEU_IPGW_CONFIG_DIR"
 	EnvMasterKey         = "NEU_IPGW_MASTER_KEY"
+	EnvLanguage          = "NEU_IPGW_LANG"
 	// DefaultMasterKey is public and meant for baseline obfuscation only.
 	DefaultMasterKey = "doratiger-neu-ipgw-default-master-key-v1"
 
 	DefaultIPGatewayLoginURL    = "https://ipgw.neu.edu.cn/srun_portal_pc?ac_id=1"
 	DefaultIPGatewayLoggedinURL = "https://ipgw.neu.edu.cn/srun_portal_success?ac_id=1"
+	DefaultIPGatewayStatusURL   = "https://ipgw.neu.edu.cn/cgi-bin/rad_user_info"
 
 	DefaultIPGatewayAdminLoginURL    = "https://ipgw.neu.edu.cn:8800/sso/neusoft/index"
 	DefaultIPGatewayAdminLoggedinURL = "https://ipgw.neu.edu.cn:8800/home"

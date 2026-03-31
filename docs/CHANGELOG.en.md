@@ -2,6 +2,19 @@
 
 [简体中文](./CHANGELOG.md) | [English](./CHANGELOG.en.md)
 
+## [v0.3.1] - 2026-03-31
+
+### Added
+- Surface account, traffic, duration, balance, and IP after a successful `login`
+- Introduce `info` subcommand to query the current online status without re-login
+- Add bilingual output with `--lang` flag or `NEU_IPGW_LANG` env (defaults to Chinese, English optional)
+
+### Fixed
+- Handle numeric responses from `rad_user_info` to avoid JSON parsing failures on certain gateways
+
+### Changed
+- Share the localized formatter between login/info outputs to keep zh/en strings consistent
+
 ## [v0.3.0] - 2026-03-30
 
 ### Added
