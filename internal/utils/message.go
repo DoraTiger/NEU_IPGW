@@ -3,7 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -16,7 +16,7 @@ type LoginMessage struct {
 
 func GetReadableLoginMessage(resp *http.Response) (int, string, error) {
 	var message LoginMessage
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	err := json.Unmarshal(body, &message)
 	if err != nil {
 		return 1, "", fmt.Errorf("Error format message: %v", err)

@@ -112,9 +112,13 @@ func (s *CredentialStore) DeleteByUsername(username string) (bool, error) {
 	delete(container.Accounts, username)
 	if container.LastAccount == username {
 		container.LastAccount = ""
+		names := make([]string, 0, len(container.Accounts))
 		for name := range container.Accounts {
-			container.LastAccount = name
-			break
+			names = append(names, name)
+		}
+		sort.Strings(names)
+		if len(names) > 0 {
+			container.LastAccount = names[0]
 		}
 	}
 

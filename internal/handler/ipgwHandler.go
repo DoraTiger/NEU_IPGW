@@ -150,7 +150,7 @@ func formatDuration(seconds int64) string {
 	}
 	days := hours / 24
 	remainingHours := hours % 24
-	return fmt.Sprintf("%dd %dh", days, remainingHours)
+	return fmt.Sprintf("%dd %dh %dm", days, remainingHours, remainingMinutes)
 }
 
 func parseFloat(value json.Number) (float64, error) {
@@ -195,35 +195,35 @@ func (h *ipgwHandler) SetClient(client *http.Client) {
 // https://ipgw.neu.edu.cn/
 func (h *ipgwHandler) Login() (string, error) {
 	// get query parameters corresponding to the gateway url on the current network
-	resp, err := h.client.Get(config.DefaultIPGatewayLoginURL)
+	resp1, err := h.client.Get(config.DefaultIPGatewayLoginURL)
 	if err != nil {
 		file, line := utils.GetErrorLocation()
 		h.logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
 		return "", err
 	}
-	defer resp.Body.Close()
+	resp1.Body.Close()
 
 	// get ticket
-	resp, err = h.client.Get(config.DefaultIPGatewayTicketURL + resp.Request.URL.RawQuery)
+	resp2, err := h.client.Get(config.DefaultIPGatewayTicketURL + resp1.Request.URL.RawQuery)
 	if err != nil {
 		file, line := utils.GetErrorLocation()
 		h.logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
 		return "", err
 	}
-	defer resp.Body.Close()
+	resp2.Body.Close()
 
 	// login by ticket
-	req, _ := http.NewRequest("GET", config.DefaultIPGatewayAPIURL+resp.Request.URL.RequestURI(), nil)
-	resp, err = h.client.Do(req)
+	req, _ := http.NewRequest("GET", config.DefaultIPGatewayAPIURL+resp2.Request.URL.RequestURI(), nil)
+	resp3, err := h.client.Do(req)
 	if err != nil {
 		file, line := utils.GetErrorLocation()
 		h.logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
 		return "", err
 	}
-	defer resp.Body.Close()
+	defer resp3.Body.Close()
 
 	//get final result
-	_, msg, err := utils.GetReadableLoginMessage(resp)
+	_, msg, err := utils.GetReadableLoginMessage(resp3)
 	if err != nil {
 		file, line := utils.GetErrorLocation()
 		h.logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
@@ -238,11 +238,12 @@ func (h *ipgwHandler) Login() (string, error) {
 func (h *ipgwHandler) Logout() error {
 	req, _ := http.NewRequest("GET", config.DefaultIPGatewayLogoutURL, nil)
 	req.Header.Add("Referer", config.DefaultIPGatewayLoggedinURL)
-	_, err := h.client.Do(req)
+	resp, err := h.client.Do(req)
 	if err != nil {
 		file, line := utils.GetErrorLocation()
 		h.logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
 		return err
 	}
+	defer resp.Body.Close()
 	return nil
 }

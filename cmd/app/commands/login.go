@@ -89,7 +89,10 @@ var LoginCmd = &cobra.Command{
 				return
 			}
 		} else {
-			_ = store.MarkLast(credentialUsername)
+			if err := store.MarkLast(credentialUsername); err != nil {
+				file, line := utils.GetErrorLocation()
+				logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
+			}
 		}
 
 		fmt.Println(msg)
