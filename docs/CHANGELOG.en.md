@@ -2,6 +2,21 @@
 
 [简体中文](./CHANGELOG.md) | [English](./CHANGELOG.en.md)
 
+## [v0.3.2] - 2026-06-23
+
+### Added
+- Add `power` command to query dormitory electricity bills
+- Unified output format: remaining kWh + balance (converted at 0.51 CNY/kWh)
+- Auto-translate dormitory numbers (based on official lookup table)
+- Support manual room number query (`-r` flag)
+- Support room info only query (`-i` flag)
+- Support full output (`-a` flag)
+- Unified SSO login flow (CAS + service login)
+
+### Changed
+- Refactor SSO login logic as reusable component
+- Centralize all config constants, eliminate hardcoded values
+
 ## [v0.3.1] - 2026-03-31
 
 ### Added
