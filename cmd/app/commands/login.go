@@ -95,16 +95,37 @@ var LoginCmd = &cobra.Command{
 			}
 		}
 
-		fmt.Println(msg)
-
 		info, err := ipgwHandler.FetchOnlineInfo()
 		if err != nil {
 			file, line := utils.GetErrorLocation()
 			logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
-			fmt.Printf("%s: %v\n", i18n.T(lang, i18n.MsgLoginUsageFail), err)
+			if utils.OutputJSON {
+				data := map[string]interface{}{
+					"success": false,
+					"message": msg,
+					"error":   err.Error(),
+				}
+				utils.Output(data, func() {})
+			} else {
+				fmt.Println(msg)
+				fmt.Printf("%s: %v\n", i18n.T(lang, i18n.MsgLoginUsageFail), err)
+			}
 			return
 		}
-		printOnlineInfo(lang, info)
+
+		data := map[string]interface{}{
+			"success":  true,
+			"message":  msg,
+			"username": info.Username,
+			"traffic":  info.Traffic(),
+			"duration": info.Duration(),
+			"balance":  info.Balance,
+			"ip":       info.IP,
+		}
+		utils.Output(data, func() {
+			fmt.Println(msg)
+			printOnlineInfo(lang, info)
+		})
 	},
 }
 

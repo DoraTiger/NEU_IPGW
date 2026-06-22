@@ -21,12 +21,22 @@ var InfoCmd = &cobra.Command{
 		info, err := ipgwHandler.FetchOnlineInfo()
 		if err != nil {
 			if errors.Is(err, handler.ErrIPGWNotOnline) {
-				fmt.Println(i18n.T(lang, i18n.MsgNotLoggedIn))
+				data := map[string]interface{}{
+					"error": i18n.T(lang, i18n.MsgNotLoggedIn),
+				}
+				utils.Output(data, func() {
+					fmt.Println(i18n.T(lang, i18n.MsgNotLoggedIn))
+				})
 				return
 			}
 			file, line := utils.GetErrorLocation()
 			logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
-			fmt.Printf("%s: %v\n", i18n.T(lang, i18n.MsgUsageFetchFail), err)
+			data := map[string]interface{}{
+				"error": fmt.Sprintf("%s: %v", i18n.T(lang, i18n.MsgUsageFetchFail), err),
+			}
+			utils.Output(data, func() {
+				fmt.Printf("%s: %v\n", i18n.T(lang, i18n.MsgUsageFetchFail), err)
+			})
 			return
 		}
 
@@ -35,9 +45,19 @@ var InfoCmd = &cobra.Command{
 }
 
 func printOnlineInfo(lang string, info *handler.OnlineInfo) {
-	fmt.Printf("%s: %s\n", i18n.T(lang, i18n.LabelAccount), info.Username)
-	fmt.Printf("%s: %s\n", i18n.T(lang, i18n.LabelTraffic), info.Traffic())
-	fmt.Printf("%s: %s\n", i18n.T(lang, i18n.LabelDuration), info.Duration())
-	fmt.Printf("%s: %.2f\n", i18n.T(lang, i18n.LabelBalance), info.Balance)
-	fmt.Printf("%s: %s\n", i18n.T(lang, i18n.LabelOnlineIP), info.IP)
+	data := map[string]interface{}{
+		"username": info.Username,
+		"traffic":  info.Traffic(),
+		"duration": info.Duration(),
+		"balance":  info.Balance,
+		"ip":       info.IP,
+	}
+
+	utils.Output(data, func() {
+		fmt.Printf("%s: %s\n", i18n.T(lang, i18n.LabelAccount), info.Username)
+		fmt.Printf("%s: %s\n", i18n.T(lang, i18n.LabelTraffic), info.Traffic())
+		fmt.Printf("%s: %s\n", i18n.T(lang, i18n.LabelDuration), info.Duration())
+		fmt.Printf("%s: %.2f\n", i18n.T(lang, i18n.LabelBalance), info.Balance)
+		fmt.Printf("%s: %s\n", i18n.T(lang, i18n.LabelOnlineIP), info.IP)
+	})
 }

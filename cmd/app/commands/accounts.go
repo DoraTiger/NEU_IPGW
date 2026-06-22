@@ -32,19 +32,38 @@ var AccountsListCmd = &cobra.Command{
 		}
 
 		if len(accounts) == 0 {
-			fmt.Println("no saved accounts")
+			data := map[string]interface{}{
+				"accounts": []interface{}{},
+			}
+			utils.Output(data, func() {
+				fmt.Println("no saved accounts")
+			})
 			return
 		}
 
-		fmt.Printf("%-20s %-8s %-25s\n", "username", "last", "updated_at")
-		for _, item := range accounts {
-			last := ""
-			if item.IsLast {
-				last = "*"
+		accountList := make([]map[string]interface{}, len(accounts))
+		for i, item := range accounts {
+			accountList[i] = map[string]interface{}{
+				"username":   item.Username,
+				"is_last":    item.IsLast,
+				"updated_at": item.UpdatedAt.Local().Format(time.RFC3339),
 			}
-			timeText := item.UpdatedAt.Local().Format(time.RFC3339)
-			fmt.Printf("%-20s %-8s %-25s\n", item.Username, last, timeText)
 		}
+
+		data := map[string]interface{}{
+			"accounts": accountList,
+		}
+		utils.Output(data, func() {
+			fmt.Printf("%-20s %-8s %-25s\n", "username", "last", "updated_at")
+			for _, item := range accounts {
+				last := ""
+				if item.IsLast {
+					last = "*"
+				}
+				timeText := item.UpdatedAt.Local().Format(time.RFC3339)
+				fmt.Printf("%-20s %-8s %-25s\n", item.Username, last, timeText)
+			}
+		})
 	},
 }
 

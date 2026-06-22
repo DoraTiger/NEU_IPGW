@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 
 	cfg "github.com/DoraTiger/NEU_IPGW/config"
+	"github.com/DoraTiger/NEU_IPGW/internal/utils"
 )
 
 var (
@@ -14,6 +15,7 @@ var (
 	log_level    string
 	log_format   string
 	languageFlag string
+	jsonOutput   bool
 )
 
 func init() {
@@ -26,6 +28,7 @@ func registerFlagsRootCmd(cmd *cobra.Command) {
 	cmd.PersistentFlags().StringVar(&configDirFlag, "config-dir", "", "credential config directory")
 	cmd.PersistentFlags().StringVar(&masterKeyFlag, "master-key", "", "master key for local credential encryption")
 	cmd.PersistentFlags().StringVar(&languageFlag, "lang", "", "output language (zh or en)")
+	cmd.PersistentFlags().BoolVar(&jsonOutput, "json", false, "output in JSON format")
 }
 
 // RootCmd is the root command for NEU_IPGW.
@@ -34,6 +37,8 @@ var RootCmd = &cobra.Command{
 	Use:   "NEU_IPGW",
 	Short: "NEU_IPGW is a command line interface for NEU internet connect",
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) (err error) {
+		utils.OutputJSON = jsonOutput
+
 		if cmd.Name() == VersionCmd.Name() {
 			return nil
 		}
@@ -61,6 +66,8 @@ var RootCmd = &cobra.Command{
 
 		// Set the log output path
 		logger.SetOutput(os.Stdout)
+
+		utils.OutputJSON = jsonOutput
 
 		if err := initRuntimeConfig(); err != nil {
 			return err

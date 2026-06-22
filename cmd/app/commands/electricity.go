@@ -137,15 +137,23 @@ func registerFlagsPowerCmd(cmd *cobra.Command) {
 }
 
 func printRoomOnlyInfo(lang string, elecRoomNo, dormitoryName, roomNumber string) {
-	if lang == "en" {
-		fmt.Printf("Room No: %s\n", elecRoomNo)
-		fmt.Printf("Dormitory: %s\n", dormitoryName)
-		fmt.Printf("Room Number: %s\n", roomNumber)
-	} else {
-		fmt.Printf("宿舍编号: %s\n", elecRoomNo)
-		fmt.Printf("宿舍名称: %s\n", dormitoryName)
-		fmt.Printf("寝室号: %s\n", roomNumber)
+	data := map[string]interface{}{
+		"room_no":      elecRoomNo,
+		"dormitory":    dormitoryName,
+		"room_number":  roomNumber,
 	}
+
+	utils.Output(data, func() {
+		if lang == "en" {
+			fmt.Printf("Room No: %s\n", elecRoomNo)
+			fmt.Printf("Dormitory: %s\n", dormitoryName)
+			fmt.Printf("Room Number: %s\n", roomNumber)
+		} else {
+			fmt.Printf("宿舍编号: %s\n", elecRoomNo)
+			fmt.Printf("宿舍名称: %s\n", dormitoryName)
+			fmt.Printf("寝室号: %s\n", roomNumber)
+		}
+	})
 }
 
 func printElectricityInfo(lang string, elecRoomNo, dormitoryName string, elecInfo *handler.ElectricityInfo) {
@@ -154,25 +162,39 @@ func printElectricityInfo(lang string, elecRoomNo, dormitoryName string, elecInf
 		roomNumber = elecRoomNo[3:]
 	}
 
-	if lang == "en" {
-		fmt.Printf("Room No: %s\n", elecRoomNo)
-		fmt.Printf("Dormitory: %s\n", dormitoryName)
-		fmt.Printf("Room Number: %s\n", roomNumber)
-		fmt.Printf("Electricity Remaining: %.2f kWh\n", elecInfo.RemainDegree)
-		fmt.Printf("Electricity Balance: %.2f CNY\n", elecInfo.RemainYuan)
-		if allInfo {
-			fmt.Printf("Room Description: %s\n", elecInfo.ElecRoomInfo)
-			fmt.Printf("Last Read Time: %s\n", elecInfo.LastReadTime)
-		}
-	} else {
-		fmt.Printf("宿舍编号: %s\n", elecRoomNo)
-		fmt.Printf("宿舍名称: %s\n", dormitoryName)
-		fmt.Printf("寝室号: %s\n", roomNumber)
-		fmt.Printf("剩余度数: %.2f 度\n", elecInfo.RemainDegree)
-		fmt.Printf("电费余额: %.2f 元\n", elecInfo.RemainYuan)
-		if allInfo {
-			fmt.Printf("房间描述: %s\n", elecInfo.ElecRoomInfo)
-			fmt.Printf("最后读表时间: %s\n", elecInfo.LastReadTime)
-		}
+	data := map[string]interface{}{
+		"room_no":         elecRoomNo,
+		"dormitory":       dormitoryName,
+		"room_number":     roomNumber,
+		"remain_degree":   elecInfo.RemainDegree,
+		"remain_yuan":     elecInfo.RemainYuan,
 	}
+	if allInfo {
+		data["room_desc"] = elecInfo.ElecRoomInfo
+		data["last_read_time"] = elecInfo.LastReadTime
+	}
+
+	utils.Output(data, func() {
+		if lang == "en" {
+			fmt.Printf("Room No: %s\n", elecRoomNo)
+			fmt.Printf("Dormitory: %s\n", dormitoryName)
+			fmt.Printf("Room Number: %s\n", roomNumber)
+			fmt.Printf("Electricity Remaining: %.2f kWh\n", elecInfo.RemainDegree)
+			fmt.Printf("Electricity Balance: %.2f CNY\n", elecInfo.RemainYuan)
+			if allInfo {
+				fmt.Printf("Room Description: %s\n", elecInfo.ElecRoomInfo)
+				fmt.Printf("Last Read Time: %s\n", elecInfo.LastReadTime)
+			}
+		} else {
+			fmt.Printf("宿舍编号: %s\n", elecRoomNo)
+			fmt.Printf("宿舍名称: %s\n", dormitoryName)
+			fmt.Printf("寝室号: %s\n", roomNumber)
+			fmt.Printf("剩余度数: %.2f 度\n", elecInfo.RemainDegree)
+			fmt.Printf("电费余额: %.2f 元\n", elecInfo.RemainYuan)
+			if allInfo {
+				fmt.Printf("房间描述: %s\n", elecInfo.ElecRoomInfo)
+				fmt.Printf("最后读表时间: %s\n", elecInfo.LastReadTime)
+			}
+		}
+	})
 }

@@ -35,7 +35,13 @@ var LogoutCmd = &cobra.Command{
 		if err != nil {
 			file, line := utils.GetErrorLocation()
 			logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
-			fmt.Println(err)
+			data := map[string]interface{}{
+				"success": false,
+				"error":   err.Error(),
+			}
+			utils.Output(data, func() {
+				fmt.Println(err)
+			})
 			return
 		}
 
@@ -43,12 +49,24 @@ var LogoutCmd = &cobra.Command{
 			if err := forgetSavedCredential(forgetAccount); err != nil {
 				file, line := utils.GetErrorLocation()
 				logger.Debug(fmt.Sprintf("Error in file %s, line %d: %v", file, line, err))
-				fmt.Println(err)
+				data := map[string]interface{}{
+					"success": false,
+					"error":   err.Error(),
+				}
+				utils.Output(data, func() {
+					fmt.Println(err)
+				})
 				return
 			}
 		}
 
-		fmt.Println("logout success")
+		data := map[string]interface{}{
+			"success": true,
+			"message": "logout success",
+		}
+		utils.Output(data, func() {
+			fmt.Println("logout success")
+		})
 	},
 }
 
@@ -66,7 +84,13 @@ func forgetSavedCredential(selectedAccount string) error {
 		if !deleted {
 			return fmt.Errorf("saved account %q not found", selectedAccount)
 		}
-		fmt.Printf("saved account %q deleted\n", selectedAccount)
+		data := map[string]interface{}{
+			"deleted":  true,
+			"username": selectedAccount,
+		}
+		utils.Output(data, func() {
+			fmt.Printf("saved account %q deleted\n", selectedAccount)
+		})
 		return nil
 	}
 
@@ -77,6 +101,12 @@ func forgetSavedCredential(selectedAccount string) error {
 	if !deleted {
 		return fmt.Errorf("no saved account to delete")
 	}
-	fmt.Printf("saved account %q deleted\n", username)
+	data := map[string]interface{}{
+		"deleted":  true,
+		"username": username,
+	}
+	utils.Output(data, func() {
+		fmt.Printf("saved account %q deleted\n", username)
+	})
 	return nil
 }
