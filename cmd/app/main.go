@@ -16,6 +16,7 @@ func main() {
 		cmd.AccountsCmd,
 		cmd.InstallCmd,
 		cmd.InfoCmd,
+		cmd.PowerCmd,
 	)
 	rootCmd.SilenceUsage = true
 	rootCmd.SilenceErrors = true

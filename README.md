@@ -141,7 +141,41 @@ NEU_IPGW logout --forget
 NEU_IPGW logout --forget --account username
 ```
 
-8. 环境变量覆盖
+8. 查询电费
+
+```bash
+# 使用已保存账号查询电费
+NEU_IPGW power
+
+# 手动指定宿舍号查询
+NEU_IPGW power -r <宿舍编号>
+
+# 只查询宿舍信息（不查电费）
+NEU_IPGW power -i
+
+# 输出全量信息（含房间描述、读表时间等）
+NEU_IPGW power -a
+
+# 手动指定宿舍号 + 全量输出
+NEU_IPGW power -r <宿舍编号> -a
+
+# 使用指定账号查询
+NEU_IPGW power --account username
+
+# 直接传入凭据查询
+NEU_IPGW power -u username -p password
+
+# 传入凭据并保存
+NEU_IPGW power -u username -p password --save
+```
+
+电费输出统一格式：剩余度数 + 电费余额（按 0.51 元/度换算）。
+
+宿舍编号规则：宿舍楼编号(3位) + 寝室号(4位，不足4位前面补0)。
+
+宿舍编号对照表详见：[东北大学各宿舍电费缴费编号](https://hqglc.neu.edu.cn/2021/1020/c2465a204768/page.htm)
+
+9. 环境变量覆盖
 
 ```bash
 # 覆盖本地凭据目录

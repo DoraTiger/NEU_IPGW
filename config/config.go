@@ -23,6 +23,16 @@ const (
 	DefaultIPGatewayAPIURL    = "https://ipgw.neu.edu.cn/v1"
 	DefaultIPGatewayLogoutURL = "https://ipgw.neu.edu.cn/cgi-bin/srun_portal?action=logout&username="
 
+	DefaultSSOBaseURL   = "https://pass.neu.edu.cn/tpass/login"
+	DefaultSSOLogoutURL = "https://pass.neu.edu.cn/tpass/logout"
+	DefaultPayCASURL    = "https://pay.neu.edu.cn/drCasLogin"
+	DefaultPayReferer   = "https://pay.neu.edu.cn/"
+
+	DefaultElectricityQueryURL    = "https://pay.neu.edu.cn/queryDefaultRoominfo"
+	DefaultElectricityRoomInfoURL = "https://pay.neu.edu.cn/queryRommInfo"
+	DefaultFactoryCode            = "E039"
+	DefaultElectricityPrice       = 0.51
+
 	DefaultLogLevel  = "info"
 	DefaultLogFormat = "plain"
 

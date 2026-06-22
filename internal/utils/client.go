@@ -2,6 +2,7 @@ package utils
 
 import (
 	"crypto/tls"
+	"encoding/json"
 	"net/http"
 	"net/http/cookiejar"
 )
@@ -16,4 +17,8 @@ func NewClientWithJar() *http.Client {
 		},
 	}
 	return client
+}
+
+func ParseJSON(data []byte, v interface{}) error {
+	return json.Unmarshal(data, v)
 }
